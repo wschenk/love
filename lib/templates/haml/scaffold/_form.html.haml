@@ -1,0 +1,5 @@
+= form_for @<%= singular_table_name %>, layout: :horizontal do |f|
+<% for attribute in attributes -%>
+  = f.<%= attribute.field_type %> :<%= attribute.name %>, :class => 'form-control'
+<% end -%>
+  = f.submit :class => 'btn btn-primary'

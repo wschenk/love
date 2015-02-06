@@ -1,0 +1,20 @@
+.container
+  .row
+    .center_panel
+      .panel.panel-default.only
+
+        .panel-heading
+          Forgot your password?
+
+        .panel-body
+
+          = form_for(resource, as: resource_name, url: password_path(resource_name), layout: :horizontal) do |f|
+
+            / = devise_error_messages!
+
+            = f.email_field :email, autofocus: true
+
+            = f.submit "Send me reset password instructions"
+
+          %p.text-right
+            = render partial: "devise/shared/links"
