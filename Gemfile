@@ -59,6 +59,7 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'launchy'
   gem 'vcr'
+  gem 'faker'
 end
 
 group :test do
@@ -87,3 +88,6 @@ gem 'omniauth-google-oauth2'
 gem 'google-api-client', require: 'google/api_client'
 gem 'omniauth-twitter'
 gem 'twitter'
+
+# gem 'griddler'
+gem 'griddler-sendgrid'

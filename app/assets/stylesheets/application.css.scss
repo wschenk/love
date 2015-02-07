@@ -3,8 +3,59 @@
 //-----------------------------------------
 @import 'variables';
 
+@font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$navbar-default-bg: #fff;
+$navbar-default-border: none;
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+
+.kiosk {
+  .navbar {
+    opacity: 0;
+    transition: opacity .5s;
+  }
+  .navbar:hover {
+    opacity: 1;
+    transition: opacity 1.5s;
+  }
+}
+
+#bg {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  
+  /* Preserve aspect ratio */
+
+  max-height: 100%;
+  // min-width: 100%;
+  // min-height: 100%;
+  // max-height: 100%;
+
+  transition: left 15s;
+  tranistion-timing-function: ease-in-out;
+}
+
+.thought {
+  @extend .col-lg-6;
+  @extend .col-lg-offset-3;
+
+  @extend .col-md-6;
+  @extend .col-md-offset-3;
+
+  @extend .col-sm-8;
+  @extend .col-sm-offset-2;
+  color: white;
+
+  font-size: 48px;
+  font-weight: 200;
+
+  .to {
+    font-weight: 500;
+  }
+}
 
 // This is used by the devise generated views.
 .center_panel {

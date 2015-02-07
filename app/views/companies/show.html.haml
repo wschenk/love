@@ -1,0 +1,16 @@
+.container
+  .page-header
+    = link_to companies_path, :class => 'btn btn-default' do
+      %span.glyphicon.glyphicon-list-alt
+      Back
+    = link_to edit_company_path(@company), :class => 'btn btn-primary' do
+      %span.glyphicon.glyphicon-pencil
+      Edit
+    %h1 Show company
+
+  %dl.dl-horizontal
+    %dt Name:
+    %dd= @company.name
+    %dt Domain:
+    %dd= @company.domain
+

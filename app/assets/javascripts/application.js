@@ -13,3 +13,22 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+
+$( function() {
+
+  $("#bg").one("load", function() {
+    // $("#bg").addClass( "right" );
+    // console.log( "Image loaded" );
+    // console.log( $(window).width() );
+    // console.log( $("#bg").width() );
+
+    var pos = $(window).width() - $("#bg").width();
+
+    console.log( pos );
+
+
+    $("#bg").css( "left", pos );
+  }).each(function() {
+    if(this.complete) $(this).load();
+  });
+});

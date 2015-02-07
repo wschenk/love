@@ -1,0 +1,10 @@
+= form_for @shout, layout: :horizontal do |f|
+  = f.number_field :company_id, :class => 'form-control'
+  = f.text_field :to, :class => 'form-control'
+  = f.number_field :to_user_id, :class => 'form-control'
+  = f.text_field :from, :class => 'form-control'
+  = f.number_field :from_user_id, :class => 'form-control'
+  = f.text_field :message, :class => 'form-control'
+  = f.check_box :identified, :class => 'form-control'
+  = f.check_box :public, :class => 'form-control'
+  = f.submit :class => 'btn btn-primary'

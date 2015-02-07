@@ -23,15 +23,6 @@
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
-guard "cucumber", cli: "--color --strict" do
-  watch(%r{^features/.+\.feature$})
-  watch(%r{^features/support/.+$})          { "features" }
-
-  watch(%r{^features/step_definitions/(.+)_steps\.rb$}) do |m|
-    Dir[File.join("**/#{m[1]}.feature")][0] || "features"
-  end
-end
-
 # Note: The cmd option is now required due to the increasing number of ways
 #       rspec may be run, below are examples of the most common uses.
 #  * bundler: 'bundle exec rspec'

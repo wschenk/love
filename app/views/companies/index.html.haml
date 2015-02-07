@@ -1,0 +1,25 @@
+.container
+  .page-header
+    = link_to new_company_path, :class => 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      New Company
+    %h1 Listing companies
+
+  .table-responsive
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Domain
+          %th
+          %th
+          %th
+
+      %tbody
+        - @companies.each do |company|
+          %tr
+            %td= company.name
+            %td= company.domain
+            %td= link_to 'Show', company
+            %td= link_to 'Edit', edit_company_path(company)
+            %td= link_to 'Destroy', company, :data => { confirm: 'Are you sure?' }, :method => :delete

@@ -1,0 +1,37 @@
+.container
+  .page-header
+    = link_to new_shout_path, :class => 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      New Shout
+    %h1 Listing shouts
+
+  .table-responsive
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th Company
+          %th To
+          %th To user
+          %th From
+          %th From user
+          %th Message
+          %th Identified
+          %th Public
+          %th
+          %th
+          %th
+
+      %tbody
+        - @shouts.each do |shout|
+          %tr
+            %td= shout.company_id
+            %td= shout.to
+            %td= shout.to_user_id
+            %td= shout.from
+            %td= shout.from_user_id
+            %td= shout.message
+            %td= shout.identified
+            %td= shout.public
+            %td= link_to 'Show', shout
+            %td= link_to 'Edit', edit_shout_path(shout)
+            %td= link_to 'Destroy', shout, :data => { confirm: 'Are you sure?' }, :method => :delete

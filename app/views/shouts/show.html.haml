@@ -1,0 +1,28 @@
+.container
+  .page-header
+    = link_to shouts_path, :class => 'btn btn-default' do
+      %span.glyphicon.glyphicon-list-alt
+      Back
+    = link_to edit_shout_path(@shout), :class => 'btn btn-primary' do
+      %span.glyphicon.glyphicon-pencil
+      Edit
+    %h1 Show shout
+
+  %dl.dl-horizontal
+    %dt Company:
+    %dd= @shout.company_id
+    %dt To:
+    %dd= @shout.to
+    %dt To user:
+    %dd= @shout.to_user_id
+    %dt From:
+    %dd= @shout.from
+    %dt From user:
+    %dd= @shout.from_user_id
+    %dt Message:
+    %dd= @shout.message
+    %dt Identified:
+    %dd= @shout.identified
+    %dt Public:
+    %dd= @shout.public
+
