@@ -59,6 +59,8 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
+    autoprefixer-rails (3.0.1.20140826)
+      execjs
     awesome_print (1.6.1)
     bcrypt (3.1.9)
     bh (1.2.0)
@@ -447,6 +449,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
   bh
   bootstrap-sass
   byebug

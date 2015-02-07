@@ -15,20 +15,34 @@
 //= require bootstrap-sprockets
 
 $( function() {
-
-  $("#bg").one("load", function() {
-    // $("#bg").addClass( "right" );
-    // console.log( "Image loaded" );
-    // console.log( $(window).width() );
-    // console.log( $("#bg").width() );
-
-    var pos = $(window).width() - $("#bg").width();
-
-    console.log( pos );
-
-
-    $("#bg").css( "left", pos );
+  $("#bg img").one("load", function() {
+    resize_window();
   }).each(function() {
     if(this.complete) $(this).load();
   });
+  $(window).resize( resize_window );
 });
+
+var resize_window = function() {
+  var i = $("#bg img");
+  var i_aspect = i.width() / i.height()
+  var w_aspect = $(window).width() / $(window).height();
+  var scale=1.0;
+
+  if( i_aspect < w_aspect ) {
+    scale = $(window).width() / i.width();
+  } else {
+    scale = $(window).height() / i.height();
+  }
+  
+  var dx =  ($(window).width()/2) - (i.width()/2);
+  var dy = ($(window).height()/2) - (i.height()/2);
+
+  console.log( "scale" + scale );
+  i.css( "transform", "scale(" + scale + ")" ).
+    css( "margin-left", dx ).
+    css( "margin-top", dy ).
+    css( "opacity", 1 );
+
+  $("#bg .zoomer").addClass( "pan" );
+}

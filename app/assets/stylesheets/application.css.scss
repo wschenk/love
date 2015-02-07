@@ -23,19 +23,29 @@ $navbar-default-border: none;
 }
 
 #bg {
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  
-  /* Preserve aspect ratio */
-
-  max-height: 100%;
-  // min-width: 100%;
-  // min-height: 100%;
-  // max-height: 100%;
-
-  transition: left 15s;
-  tranistion-timing-function: ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: #222;
+  .zoomer {
+    transition: all 6s;
+    // transition: margin 5s;
+    // transition: scale 4s;
+    &.pan {
+      margin-top: -30px;
+      margin-left: 40px;
+      // transition: margin 5s;
+      // transition: scale 4s;
+      transform: scale( 1.2 );
+      // -webkit-transform: scale( 1.1 );
+    }    
+  }
+  img {
+    opacity: 0;
+    translate: transform3d( 0,0,0);
+    transition: opacity 1s ease-in-out;
+  }
 }
 
 .thought {
