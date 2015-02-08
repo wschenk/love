@@ -34,11 +34,12 @@ var resize_window = function() {
   } else {
     scale = $(window).height() / i.height();
   }
-  
+  scale *= 1.05;
+
   var dx =  ($(window).width()/2) - (i.width()/2);
   var dy = ($(window).height()/2) - (i.height()/2);
+  // dy += 70; // navbar height
 
-  console.log( "scale" + scale );
   i.css( "transform", "scale(" + scale + ")" ).
     css( "margin-left", dx ).
     css( "margin-top", dy ).

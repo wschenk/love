@@ -10,7 +10,8 @@ class ShoutsController < ApplicationController
   end 
 
   def show
-  end 
+    render "kiosk/index"
+  end
 
   def new 
     @shout = Shout.new

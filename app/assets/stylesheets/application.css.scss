@@ -30,14 +30,12 @@ $navbar-default-border: none;
   background: #222;
   .zoomer {
     transition: all 6s;
-    // transition: margin 5s;
-    // transition: scale 4s;
     &.pan {
-      margin-top: -30px;
-      margin-left: 40px;
-      // transition: margin 5s;
-      // transition: scale 4s;
-      transform: scale( 1.2 );
+      // margin-top: -30px;
+      // margin-left: 40px;
+      // // transition: margin 5s;
+      // // transition: scale 4s;
+      transform: scale( 1.1 );
       // -webkit-transform: scale( 1.1 );
     }    
   }
