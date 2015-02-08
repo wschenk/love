@@ -15,35 +15,95 @@
 //= require bootstrap-sprockets
 
 $( function() {
-  $("#bg img").one("load", function() {
-    resize_window();
+  $("#bg_tag img").one("load", function() {
+    scale_images( $(this) );
   }).each(function() {
     if(this.complete) $(this).load();
   });
   $(window).resize( resize_window );
+  setTimeout( poll_for_shouts, 8000 );
 });
 
 var resize_window = function() {
-  var i = $("#bg img");
+  $("#bg_tag img").each( function() { scale_images( $(this) ); } );
+}
+
+var scale_images = function( i ) {
   var i_aspect = i.width() / i.height()
   var w_aspect = $(window).width() / $(window).height();
-  var scale=1.0;
 
   if( i_aspect < w_aspect ) {
-    scale = $(window).width() / i.width();
+    i.removeClass( "taller" ).addClass( "wider" );
   } else {
-    scale = $(window).height() / i.height();
+    i.removeClass( "wider" ).addClass( "taller" );
   }
-  scale *= 1.05;
+}
 
-  var dx =  ($(window).width()/2) - (i.width()/2);
-  var dy = ($(window).height()/2) - (i.height()/2);
-  // dy += 70; // navbar height
+var next_image = function() {
+  var current_image = -1;
+  var i = 0;
 
-  i.css( "transform", "scale(" + scale + ")" ).
-    css( "margin-left", dx ).
-    css( "margin-top", dy ).
-    css( "opacity", 1 );
+  var stacked_list = $("#bg_tag .stacked");
+  stacked_list.each( function() {
+    if( $(this).hasClass( "active" ) ) {
+      current_image = i;
+    }
+    i += 1;
+  });
 
-  $("#bg .zoomer").addClass( "pan" );
+  current_image += 1;
+  if( current_image > stacked_list.length ) {
+    current_image = 0;
+  }
+
+  stacked_list.removeClass( "active" );
+  $("#bg_tag .stacked:nth(" + current_image + ")").addClass( "active" );
+}
+
+var have_thought = function( info ) {
+
+  var html = "<span class='to'>"
+  if( info.to_user_id ) {
+    html += "<a href='/user/" + info.to_user_id + "'>"
+    html += info.to;
+    html += "</a>"
+  } else {
+    html += info.to;
+  }
+  html += "</span>\n"
+
+  html += info.message;
+
+  html += " <span class='from'>"
+  if( info.from_user_id ) {
+    html += "<a href='/user/" + info.from_user_id + "''>"
+    html += info.from;
+    html += "</a>"
+  } else {
+    html += info.from;
+  }
+  html += "</span>\n"
+
+  $(".thought").html( html );
+  if( Math.random() < .5 ) {
+    $(".thought").addClass( "right" );
+  } else {
+    $(".thought").removeClass( "right" );
+  }
+  if( Math.random() < .5 ) {
+    $(".thought").addClass( "bottom" );
+  } else {
+    $(".thought").removeClass( "bottom" );
+  }
+  // $(".thought").fadeIn();
+  next_image();
+}
+
+var poll_for_shouts = function() {
+  // console.log( "polling for shouts");
+  $.getJSON( "/next_shout" ).success(function(data) {
+    // console.log( data );
+    have_thought( data );
+    setTimeout( poll_for_shouts, 8000 );
+  });
 }

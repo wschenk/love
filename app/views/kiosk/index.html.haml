@@ -1,16 +1,15 @@
-#bg
-  .zoomer
-    / = image_tag "switzerland.jpg"
-    = image_tag "happy_alpha.jpg"
+#bg_tag
+  - %w{ crickets.jpg gaudi.jpg gaudi2.jpg happy_alpha.jpg jupiter.jpg oriondust_villegas_1900.jpg sailing.jpg switzerland.jpg }.each do |i|
+    .stacked
+      = image_tag i
 
 .container
   .row
     .thought
-      %span.to= @shout.to
-      = @shout.message
-      %span.from
-        = @shout.from
-        - if @shout.from_user
-          - c = @shout.from_user.company
-          = "-"
-          = link_to (c.name.blank? ? c.domain : c.name), c
+
+- content_for :javascripts do
+  :javascript
+    $(function() {
+      have_thought( JSON.parse('#{escape_javascript( @shout.to_json )}') );
+    });
+    
