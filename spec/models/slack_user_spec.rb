@@ -1,7 +1,9 @@
 require 'rails_helper'
 
+ENV['SLACK_API_TOKEN'] = 'xoxp-2452601099-2452601107-3650598663-873f40'
+
 RSpec.describe SlackUser, type: :model do
-  let( :slack_user ) { create( :slack_user, uid: "a123", name: "will", real_name: "Will Schenk" ) }
+  let( :slack_user ) { create( :slack_user, uid: "a123", name: "will", real_name: "Will Schenk", email: "will@happyfuncorp.com", avatar: "123" ) }
 
   it "should look for SlackUser by uid" do
     expect( slack_user.uid ).to eq( "a123" )
@@ -15,5 +17,27 @@ RSpec.describe SlackUser, type: :model do
     s = SlackUser.from_username "Will"
     expect( s ).to_not be_nil
     expect( s.uid ).to eq( "a123" )
+  end
+
+  it "should sync with slack" do
+    VCR.use_cassette "slack/sync_with_slack" do
+      expect( SlackUser.count ).to eq(0)
+      SlackUser.sync_with_slack
+      expect( SlackUser.count ).to_not eq(0)
+      su = SlackUser.where( email: "will@happyfuncorp.com").first
+      expect( su.uid ).to_not be_nil
+      expect( su.name ).to_not be_nil
+      expect( su.real_name ).to_not be_nil
+      expect( su.avatar ).to_not be_nil
+    end
+  end
+
+  it "should create the user and company from the name" do
+    u = slack_user.as_user
+
+    expect( u.company ).to_not be_nil
+    expect( u.company.domain ).to eq( "happyfuncorp.com" )
+    expect( u.email ).to eq( slack_user.email )
+    expect( u.avatar ).to eq( slack_user.avatar )
   end
 end
