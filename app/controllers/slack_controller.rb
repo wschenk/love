@@ -1,4 +1,6 @@
 class SlackController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+  
   def message
     if params[:token] != ENV['SLACK_MESSAGE_TOKEN']
       render text: "Unauthorized access", status: 401
@@ -23,7 +25,7 @@ class SlackController < ApplicationController
         render text: "Sorry, I don't know #{to_user_name}"
       else
         to_user.as_user # Triggers creation as a side effect
-        
+
         Shout.inbound from_user.as_user, to_user.real_name, message
         # Shout.
         render text: "Thanks for giving #{to_user.real_name} some love!"
