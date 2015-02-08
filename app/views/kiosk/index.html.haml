@@ -6,9 +6,11 @@
 .container
   .row
     .thought
-      %span.to Will Schenk
-      really killed that budget meeting, awesome job
+      %span.to= @shout.to
+      = @shout.message
       %span.from
-        Ben Schippers
-        = "-"
-        = link_to "HFC", "#"
+        = @shout.from
+        - if @shout.from_user
+          - c = @shout.from_user.company
+          = "-"
+          = link_to (c.name.blank? ? c.domain : c.name), c

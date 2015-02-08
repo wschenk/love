@@ -88,6 +88,7 @@ gem 'omniauth-google-oauth2'
 gem 'google-api-client', require: 'google/api_client'
 gem 'omniauth-twitter'
 gem 'twitter'
+gem 'omniauth-linkedin'
 
 # gem 'griddler'
 gem 'griddler-sendgrid'

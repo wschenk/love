@@ -2,9 +2,9 @@
   = vertical do
     = link_to root_path do
       %span.glyphicon.glyphicon-cloud
-      Home
+      Love
   = horizontal do
     = nav class: 'navbar-right' do
-      = link_to 'Contact', ""
-      = link_to 'About', ""
+      = link_to 'Shoutouts', shouts_path
+      = link_to 'Companies', companies_path
       = render partial: "application/account_dropdown"

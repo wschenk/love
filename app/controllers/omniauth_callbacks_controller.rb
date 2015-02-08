@@ -1,19 +1,23 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def linkedin
+    generic_callback( 'linkedin' )
+  end
+
   def instagram
     generic_callback( 'instagram' )
   end
+
   def facebook
     generic_callback( 'facebook' )
   end
+
   def google_oauth2
     generic_callback( 'google_oauth2' )
   end
+
   def twitter
     generic_callback( 'twitter' )
   end
-
-
-
 
   def generic_callback( provider )
     @identity = Identity.find_for_oauth env["omniauth.auth"]
@@ -27,6 +31,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.email.blank? && @identity.email
       @user.update_attribute( :email, @identity.email)
     end
+
+    # Damn you linked in!
+    # if !@user.email.blank? && @user.company.nil?
+    #   domain = @user.email.gsub( /.*@/, "" ).downcase
+
+    #   @user.company = Company.where( domain: domain ).first_or_create
+    #   @user.save
+    # end
 
     if @user.persisted?
       @identity.update_attribute( :user_id, @user.id )
