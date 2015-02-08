@@ -1,0 +1,20 @@
+.container
+  .page-header
+    = link_to slack_users_path, :class => 'btn btn-default' do
+      %span.glyphicon.glyphicon-list-alt
+      Back
+    = link_to edit_slack_user_path(@slack_user), :class => 'btn btn-primary' do
+      %span.glyphicon.glyphicon-pencil
+      Edit
+    %h1 Show slack_user
+
+  %dl.dl-horizontal
+    %dt Name:
+    %dd= @slack_user.name
+    %dt Uid:
+    %dd= @slack_user.uid
+    %dt Real name:
+    %dd= @slack_user.real_name
+    %dt Email:
+    %dd= @slack_user.email
+

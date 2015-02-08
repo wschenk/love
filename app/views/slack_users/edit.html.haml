@@ -1,0 +1,11 @@
+.container
+  .page-header
+    = link_to slack_users_path, :class => 'btn btn-default' do
+      %span.glyphicon.glyphicon-list-alt
+      Back
+    = link_to @slack_user, :class => 'btn btn-primary' do
+      %span.glyphicon.glyphicon-info-sign
+      Show
+    %h1 Editing slack_user
+
+  = render 'form'

@@ -1,0 +1,29 @@
+.container
+  .page-header
+    = link_to new_slack_user_path, :class => 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      New Slack user
+    %h1 Listing slack_users
+
+  .table-responsive
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Uid
+          %th Real name
+          %th Email
+          %th
+          %th
+          %th
+
+      %tbody
+        - @slack_users.each do |slack_user|
+          %tr
+            %td= slack_user.name
+            %td= slack_user.uid
+            %td= slack_user.real_name
+            %td= slack_user.email
+            %td= link_to 'Show', slack_user
+            %td= link_to 'Edit', edit_slack_user_path(slack_user)
+            %td= link_to 'Destroy', slack_user, :data => { confirm: 'Are you sure?' }, :method => :delete

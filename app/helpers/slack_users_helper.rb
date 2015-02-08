@@ -1,0 +1,2 @@
+module SlackUsersHelper
+end

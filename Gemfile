@@ -75,7 +75,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'rdiscount', groups: [:development, :test]
 gem 'unicorn'
 gem 'rails_12factor'
-gem 'jazz_hands', github: 'danrabinowitz/jazz_hands', branch: 'use-newer-version-of-pry', groups: [:development, :test]
+#gem 'jazz_hands', github: 'danrabinowitz/jazz_hands', branch: 'use-newer-version-of-pry', groups: [:development, :test]
 gem 'bootstrap-sass'
 gem 'modernizr-rails'
 gem 'meta-tags', require: 'meta_tags'
@@ -93,3 +93,4 @@ gem 'twitter'
 gem 'griddler-sendgrid'
 
 gem 'autoprefixer-rails'
+gem 'slack-api'
