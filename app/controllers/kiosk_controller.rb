@@ -5,11 +5,11 @@ class KioskController < ApplicationController
 
   def next_shout
     if( session[:last_id] )
-      @shout = Shout.where( "id < ?", session[:last_id] ).order("id desc").limit( 1 ).first
+      @shout = Shout.identified.where( "id < ?", session[:last_id] ).order("id desc").limit( 1 ).first
     end
 
     if @shout.nil?
-      @shout = Shout.order("id desc").first
+      @shout = Shout.identified.order("id desc").first
     end
 
     session[:last_id] = @shout.id

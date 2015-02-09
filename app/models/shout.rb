@@ -2,6 +2,8 @@ class Shout < ActiveRecord::Base
   belongs_to :from_user, class: User
   belongs_to :to_user, class: User
 
+  scope :identified, -> { where( identified: true ) }
+
   def self.inbound( from, to_name, message )
     return nil if from.nil?
     to_user = from.company.users.where( ["lower(users.name) = ?", to_name.downcase] ).first

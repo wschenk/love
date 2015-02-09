@@ -24,9 +24,23 @@ class SlackController < ApplicationController
       elsif to_user.nil?
         render text: "Sorry, I don't know #{to_user_name}"
       else
-        to_user.as_user # Triggers creation as a side effect
+        to_user_object = to_user.as_user
+        from_user_object = from_user.as_user
 
-        Shout.inbound from_user.as_user, to_user.real_name, message
+        s = Shout.inbound from_user_object, to_user.real_name, message
+
+        if from_user_object.encrypted_password.blank? && from_user_object.invitation_sent_at.nil?
+          from_user_object.current_shout = s
+          from_user_object.invite!
+        end
+
+        if to_user_object.encrypted_password.blank? && to_user_object.invitation_sent_at.nil?
+          to_user_object.current_shout = s
+          to_user_object.invite!
+        else
+          ShoutMailer.shout_message( to_user_object, s ).deliver_later
+        end
+
         # Shout.
         render text: "Thanks for giving #{to_user.real_name} some love!"
       end

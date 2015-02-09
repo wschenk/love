@@ -1,0 +1,6 @@
+<p>Hey <%= @user.email %>!</p>
+
+<p>You've been sent from love from <%= @current_shout.from %>!</p>
+<p><i><%= @current_shout.message %></i></p>
+
+<p><%= link_to "Check it out!", shout_url( @current_shout ) %></p>

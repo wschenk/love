@@ -1,0 +1,10 @@
+<p>Hey <%= @user.email %>!</p>
+
+<% if @current_shout %>
+<p>You've been sent from love from <%= @current_shout.from %>!</p>
+<p><i><%= @current_shout.message %></i></p>
+<% end %>
+
+<p><%= link_to I18n.t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@user, :invitation_token => @token) %></p>
+
+<p><%= I18n.t("devise.mailer.invitation_instructions.ignore").html_safe %></p>

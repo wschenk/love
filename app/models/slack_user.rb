@@ -45,5 +45,6 @@ class SlackUser < ActiveRecord::Base
     c = Company.where( domain: domain ).first_or_create
 
     u = c.users.create( email: email, slack_uid: uid, slack_name: name, name: real_name, avatar: avatar )
+    u
   end
 end
