@@ -29,6 +29,11 @@ class SlackController < ApplicationController
 
         s = Shout.inbound from_user_object, to_user.real_name, message
 
+        if !s.valid?
+          render text: s.errors.collect { |k,v| "#{k} #{v}" }.join( ", ")
+          return
+        end
+
         if from_user_object.encrypted_password.blank? && from_user_object.invitation_sent_at.nil?
           from_user_object = FormUser.find from_user_object.id
           from_user_object.current_shout = s
@@ -47,7 +52,7 @@ class SlackController < ApplicationController
         render text: "Thanks for giving #{to_user.real_name} some love!"
       end
     else
-      render text: "Give the love to a slack user!"
+      render text: "Don't forget to specify a @username!"
     end
   end
 end

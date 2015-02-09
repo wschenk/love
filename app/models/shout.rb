@@ -1,6 +1,7 @@
 class Shout < ActiveRecord::Base
   belongs_to :from_user, class: User
   belongs_to :to_user, class: User
+  validates :message, length: { in: 5..140 }
 
   scope :identified, -> { where( identified: true ) }
 

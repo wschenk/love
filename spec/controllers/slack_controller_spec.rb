@@ -31,7 +31,7 @@ RSpec.describe SlackController, :type => :controller do
   it "should only accept messages that have a user in front" do
     message[:text] = "message"
     post :message, message
-    expect( response.body ).to eq( "Give the love to a slack user!" )
+    expect( response.body ).to eq( "Don't forget to specify a @username!" )
   end
 
   it "should find the slack users if they don't exist" do
@@ -123,6 +123,16 @@ RSpec.describe SlackController, :type => :controller do
       expect( email.to ).to eq( ['aaron@happyfuncorp.com'] )
       expect( email.body ).to have_content( "You've been sent from love" )
       expect( email.subject ).to have_content( "Getting some love" )
+    end
+  end
+
+  it "should only create a valid shout" do
+    VCR.use_cassette 'slack/sync_with_slack' do
+      expect( Shout.count ).to eq(0)
+      message[:text] = "@xbrockenx 123"*30
+      post :message, message
+
+      expect( response.body ).to have_text( "message is too long")
     end
   end
 end

@@ -49,4 +49,11 @@ RSpec.describe Shout, type: :model do
     expect( shouter.unidentified_shouts.count ).to eq(1)
     expect( shouter.shouts.count ).to eq(2)
   end
+
+  it "should limit a shout to be 140 characters" do
+    s = Shout.inbound( shouter, "Aaron Brocken", "that was amazing!"*20 )
+
+    expect( Shout.count ).to eq(0)
+    expect( s.valid? ).to be_falsey
+  end
 end
