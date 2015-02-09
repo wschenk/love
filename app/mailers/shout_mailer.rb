@@ -1,4 +1,6 @@
 class ShoutMailer < ApplicationMailer
+  default "will@happyfuncorp.com"
+  
   def welcome_sent_shout( user, current_shout )
     @user = user
     @current_shout = current_shout
