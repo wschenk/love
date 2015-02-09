@@ -41,6 +41,8 @@ feature "Registrations", :type => :feature do
 
     within "#edit_user" do
       fill_in "user[email]", with: "email@example.com"
+      fill_in "user[password]", with: "234567890"
+      fill_in "user[password_confirmation]", with: "234567890"
     end
 
     click_button "Update"
@@ -77,5 +79,29 @@ feature "Registrations", :type => :feature do
     click_button "Sign in"
 
     expect( page.body ).to include( "Signed in successfully." )
+  end
+
+  it "should let you update your name and phone number" do
+    login_with :user
+
+    visit edit_user_registration_path
+
+    within "#edit_user" do
+      # fill_in "user[current_password]", with: "12345678"
+      fill_in "user[name]", with: "My name"
+      fill_in "user[phone]", with: "1234567890"
+    end
+
+    click_button "Update"
+
+    expect( page.body ).to_not include( "can't be blank")
+
+    expect( page.body ).to include( "Your account has been updated successfully")
+
+    expect( User.count ).to eq(1)
+    u = User.first
+    expect( u.name ).to eq( "My name" )
+    expect( u.phone ).to eq( "1234567890")
+
   end
 end

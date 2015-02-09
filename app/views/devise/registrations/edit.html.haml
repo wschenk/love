@@ -14,21 +14,29 @@
             / = devise_error_messages!
 
             = f.email_field :email, autofocus: true
+            = f.text_field :name
+            = f.text_field :phone
 
             - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               %p
                 Currently waiting confirmation for: 
                 = resource.unconfirmed_email
 
+            = f.check_box :sms_notification
+            = f.check_box :shouts_notification
+            = f.check_box :daily_notification
+            = f.check_box :weekly_notification
+
             = f.password_field :current_password
             = f.password_field :password, autocomplete: "off"
             = f.password_field :password_confirmation, autocomplete: "off"
 
+
             = f.submit "Update"
 
-      - if devise_mapping.omniauthable?
+      - if devise_mapping.omniauthable? && resource_class.omniauth_providers.length > 0
         .panel.panel-default.only
-          .panel-header
+          .panel-heading
             Connect your accounts
 
           .panel-body
