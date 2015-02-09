@@ -116,7 +116,6 @@ RSpec.describe SlackController, :type => :controller do
       expect( Shout.count ).to eq(0)
       post :message, message
 
-      p ActionMailer::Base.deliveries
       email = ActionMailer::Base.deliveries.select { |x| x.to.first == 'aaron@happyfuncorp.com' }.first
 
       expect( email ).to_not be_nil

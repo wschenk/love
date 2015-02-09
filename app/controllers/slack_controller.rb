@@ -30,11 +30,13 @@ class SlackController < ApplicationController
         s = Shout.inbound from_user_object, to_user.real_name, message
 
         if from_user_object.encrypted_password.blank? && from_user_object.invitation_sent_at.nil?
+          from_user_object = FormUser.find from_user_object.id
           from_user_object.current_shout = s
           from_user_object.invite!
         end
 
         if to_user_object.encrypted_password.blank? && to_user_object.invitation_sent_at.nil?
+          to_user_object = FormUser.find to_user_object.id
           to_user_object.current_shout = s
           to_user_object.invite!
         else
